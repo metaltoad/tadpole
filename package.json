@@ -1,0 +1,27 @@
+{
+  "name": "tadpole",
+  "version": "0.0.1",
+  "description": "Slack application to control robots.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/metaltoad/tadpole.git"
+  },
+  "keywords": [
+    "slack",
+    "robot",
+    "NLP"
+  ],
+  "author": "RJ Sheperd",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/metaltoad/tadpole/issues"
+  },
+  "homepage": "https://github.com/metaltoad/tadpole#readme",
+  "dependencies": {
+    "googleapis": "^19.0.0"
+  }
+}
