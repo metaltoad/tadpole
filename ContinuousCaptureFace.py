@@ -8,12 +8,17 @@ camera.resolution = (320, 240)
 camera.framerate = 16
 rawCapture = PiRGBArray(camera, size=(320, 240))
 
+# Warm up camera
 time.sleep(0.1)
 
 face_cascade = cv2.CascadeClassifier(
     '/home/pi/opencv-3.0.0/data/haarcascades/haarcascade_frontalface_default.xml')
 eye_cascade = cv2.CascadeClassifier(
     '/home/pi/opencv-3.0.0/data/haarcascades/haarcascade_eye.xml')
+glasses_cascade = cv2.CascadeClassifier(
+    '/home/pi/opencv-3.0.0/data/haarcascades/haarcascade_eye_tree_eyeglasses.xml')
+smile_cascade = cv2.CascadeClassifier(
+    '/home/pi/opencv-3.0.0/data/haarcascades/haarcascade_smile.xml')
 
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
     image = frame.array
@@ -28,7 +33,14 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
         roi_gray = gray[y:y+h, x:x+w]
         roi_color = image[y:y+h, x:x+w]
         eyes = eye_cascade.detectMultiScale(roi_gray)
+        glasses = glasses_cascade.detectMultiScale(roi_gray)
+
+        if len(glasses) > 0 or len(eyes) > 0:
+            print "I Can Haz Face"
+        
         for(ex,ey,ew,eh) in eyes:
+            cv2.rectangle(roi_color,(ex,ey),(ex+ew,ey+eh),(0,255,0),2)
+        for(ex,ey,ew,eh) in glasses:
             cv2.rectangle(roi_color,(ex,ey),(ex+ew,ey+eh),(0,255,0),2)
 
     cv2.imshow("Frame", image)
