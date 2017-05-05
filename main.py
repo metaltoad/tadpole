@@ -5,4 +5,4 @@ bot = AlphaBot()
 
 while True:
     bot.forward()
-    time.sleep(10000)
+    time.sleep(1)
